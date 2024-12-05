@@ -118,10 +118,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5565c5d1e26c71b498cb846fc2f76a8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  neighborRadius: 3
+  separationMode: 1
+  cohesionMode: 0
+  speed: 5
+  neighborRadius: 5
   separationRadius: 1
-  separationWeight: 1.5
+  separationWeight: 5
   alignmentWeight: 1
   cohesionWeight: 1
   targetPosition: {x: 0, y: 0, z: 0}

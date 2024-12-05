@@ -1,14 +1,14 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class BoidManager : MonoBehaviour
 {
-    public GameObject boidPrefab;
-    public int boidCount = 50;
-    public Vector3 spawnArea = new Vector3(10, 10, 10);
-    public Transform player; // 플레이어의 Transform
+    public GameObject boidPrefab; // Boid 프리팹
+    public int boidCount = 50;    // Boid 개수
+    public Vector3 spawnArea = new Vector3(10, 10, 10); // Boid 생성 범위
+    public Transform player;     // 플레이어 Transform (선택 사항)
 
-    private List<GameObject> boids = new List<GameObject>();
+    private List<BoidBehavior> boidBehaviors = new List<BoidBehavior>();
 
     void Start()
     {
@@ -21,7 +21,11 @@ public class BoidManager : MonoBehaviour
             );
 
             GameObject boid = Instantiate(boidPrefab, spawnPosition, Quaternion.identity);
-            boids.Add(boid);
+            BoidBehavior behavior = boid.GetComponent<BoidBehavior>();
+            if (behavior != null)
+            {
+                boidBehaviors.Add(behavior);
+            }
         }
     }
 
@@ -29,16 +33,27 @@ public class BoidManager : MonoBehaviour
     {
         if (player != null)
         {
-            Vector3 targetPosition = player.position; // 플레이어 위치
-            SetTargetForAllBoids(targetPosition);
+            Vector3 targetPosition = player.position;
+            foreach (var behavior in boidBehaviors)
+            {
+                behavior.targetPosition = targetPosition; // 타겟 포지션 업데이트
+            }
         }
     }
 
-    private void SetTargetForAllBoids(Vector3 targetPosition)
+    public void UpdateSeparationMode(BoidBehavior.SeparationMode mode)
     {
-        foreach (var boid in boids)
+        foreach (var behavior in boidBehaviors)
         {
-            boid.GetComponent<BoidBehavior>().targetPosition = targetPosition;
+            behavior.separationMode = mode; // SeparationMode 업데이트
+        }
+    }
+
+    public void UpdateCohesionMode(BoidBehavior.CohesionMode mode)
+    {
+        foreach (var behavior in boidBehaviors)
+        {
+            behavior.cohesionMode = mode; // CohesionMode 업데이트
         }
     }
 
