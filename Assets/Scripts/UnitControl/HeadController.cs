@@ -13,11 +13,11 @@ public class HeadController : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");     // W/S 또는 ↑/↓
 
         float upDown = 0f;
-        if (Input.GetKey(KeyCode.UpArrow))              // ↑ 키
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Space))              // ↑ 키
         {
             upDown = 1f;
         }
-        else if (Input.GetKey(KeyCode.DownArrow))       // ↓ 키
+        else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftShift))       // ↓ 키
         {
             upDown = -1f;
         }
