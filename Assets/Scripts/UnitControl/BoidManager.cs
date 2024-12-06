@@ -2,10 +2,23 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.Build.Content;
+using TMPro;
+
+[System.Serializable]
+public class BoidBehaviorData
+{
+    public float speed = 5;
+    public float neighborRadius = 5;
+    public float separationRadius = 2;
+    public float separationWeight = 2;
+    public float alignmentWeight = 1;
+    public float cohesionWeight = 1.5f;
+}
 
 public class BoidManager : MonoBehaviour
 {
     public GameObject boidPrefab;
+    public Transform boidPool;
     public int boidCount = 50;
     public Vector3 spawnArea = new Vector3(10, 10, 10);
     public Transform player;
@@ -14,20 +27,24 @@ public class BoidManager : MonoBehaviour
 
     private List<GameObject> boids = new List<GameObject>();
 
+    [SerializeField]
+    private BoidUISliderController boidController = null;
+
+    [Header("current behavior data")]
+    public BoidBehaviorData behaviorData;
+
+
     [Header("current modes")]
     public BoidBehavior.SeparationMode separationMode;
     public BoidBehavior.CohesionMode cohesionMode;
 
-    [Header("current modes")] 
-    [SerializeField]
-    private BoidUISliderController boidController = null;
 
     void Start()
     {
-        InitializeBoids();
+        InitializeBoids(true);
     }
 
-    public void InitializeBoids()
+    public void InitializeBoids(bool firstInitialize = false)
     {
         // 기존 Boid 파괴
         foreach (var boid in boids)
@@ -46,9 +63,20 @@ public class BoidManager : MonoBehaviour
                 Random.Range(-spawnArea.z, spawnArea.z)
             );
 
-            GameObject boid = Instantiate(boidPrefab, spawnPosition, Quaternion.identity);
+            GameObject boid = Instantiate(boidPrefab, spawnPosition, Quaternion.identity, boidPool);
             BoidBehavior behavior = boid.GetComponent<BoidBehavior>();
 
+            // re-set the data when it is not first initialize
+            if (firstInitialize == true)
+            {
+                behaviorData = behavior.data;
+            }
+            else
+            {
+                behavior.data = behaviorData;
+            }
+
+            // null check
             if (behavior != null)
             {
                 boidBehaviors.Add(behavior); // boidBehaviors에 추가
@@ -74,6 +102,14 @@ public class BoidManager : MonoBehaviour
             {
                 behavior.targetPosition = targetPosition;
             }
+        }
+    }
+
+    void UpdateAllDataValues()
+    {
+        foreach (var behavior in boidBehaviors)
+        {
+            behavior.data = behaviorData;
         }
     }
 

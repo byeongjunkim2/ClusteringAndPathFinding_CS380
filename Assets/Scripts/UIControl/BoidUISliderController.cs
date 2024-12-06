@@ -31,61 +31,67 @@ public class BoidUISliderController : MonoBehaviour
     {
         if (boidManager.boidBehaviors.Count > 0)
         {
-            speedSlider.value = boidManager.boidBehaviors[0].speed;
-            neighborRadiusSlider.value = boidManager.boidBehaviors[0].neighborRadius;
-            separationRadiusSlider.value = boidManager.boidBehaviors[0].separationRadius;
-            separationWeightSlider.value = boidManager.boidBehaviors[0].separationWeight;
-            alignmentWeightSlider.value = boidManager.boidBehaviors[0].alignmentWeight;
-            cohesionWeightSlider.value = boidManager.boidBehaviors[0].cohesionWeight;
+            speedSlider.value = boidManager.boidBehaviors[0].data.speed;
+            neighborRadiusSlider.value = boidManager.boidBehaviors[0].data.neighborRadius;
+            separationRadiusSlider.value = boidManager.boidBehaviors[0].data.separationRadius;
+            separationWeightSlider.value = boidManager.boidBehaviors[0].data.separationWeight;
+            alignmentWeightSlider.value = boidManager.boidBehaviors[0].data.alignmentWeight;
+            cohesionWeightSlider.value = boidManager.boidBehaviors[0].data.cohesionWeight;
         }
     }
 
 
     public void OnSpeedChanged(float newValue)
     {
+        boidManager.behaviorData.speed = newValue;
         foreach (var boid in boidManager.boidBehaviors)
         {
-            boid.speed = newValue;
+            boid.data.speed = newValue;
         }
     }
 
     public void OnNeighborRadiusChanged(float newValue)
     {
+        boidManager.behaviorData.neighborRadius = newValue;
         foreach (var boid in boidManager.boidBehaviors)
         {
-            boid.neighborRadius = newValue;
+            boid.data.neighborRadius = newValue;
         }
     }
 
     public void OnSeparationRadiusChanged(float newValue)
     {
+        boidManager.behaviorData.separationRadius = newValue;
         foreach (var boid in boidManager.boidBehaviors)
         {
-            boid.separationRadius = newValue;
+            boid.data.separationRadius = newValue;
         }
     }
 
     public void OnSeparationWeightChanged(float newValue)
     {
+        boidManager.behaviorData.separationWeight = newValue;
         foreach (var boid in boidManager.boidBehaviors)
         {
-            boid.separationWeight = newValue;
+            boid.data.separationWeight = newValue;
         }
     }
 
     public void OnAlignmentWeightChanged(float newValue)
     {
+        boidManager.behaviorData.alignmentWeight = newValue;
         foreach (var boid in boidManager.boidBehaviors)
         {
-            boid.alignmentWeight = newValue;
+            boid.data.alignmentWeight = newValue;
         }
     }
 
     public void OnCohesionWeightChanged(float newValue)
     {
+        boidManager.behaviorData.cohesionWeight = newValue;
         foreach (var boid in boidManager.boidBehaviors)
         {
-            boid.cohesionWeight = newValue;
+            boid.data.cohesionWeight = newValue;
         }
     }
 

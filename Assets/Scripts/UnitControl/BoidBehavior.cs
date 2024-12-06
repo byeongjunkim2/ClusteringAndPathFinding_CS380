@@ -9,14 +9,16 @@ public class BoidBehavior : MonoBehaviour
     public SeparationMode separationMode = SeparationMode.Linear;
     public CohesionMode cohesionMode = CohesionMode.Center;
 
-    public float speed = 2f;
-    public float neighborRadius = 3f;
-    public float separationRadius = 1f;
+    [Header("Radius & Weights data")]
+    public BoidBehaviorData data;
+    //public float speed = 2f;
+    //public float neighborRadius = 3f;
+    //public float separationRadius = 1f;
 
-    [Header("Weights")]
-    public float separationWeight = 1.5f;
-    public float alignmentWeight = 1f;
-    public float cohesionWeight = 1f;
+    //[Header("Weights")]
+    //public float separationWeight = 1.5f;
+    //public float alignmentWeight = 1f;
+    //public float cohesionWeight = 1f;
 
     private List<Transform> neighbors;
     public Vector3 targetPosition; // 타겟 포지션 추가
@@ -30,13 +32,13 @@ public class BoidBehavior : MonoBehaviour
         Vector3 cohesion = CalculateCohesion();
         Vector3 targetDirection = (targetPosition - transform.position).normalized; // 타겟 방향
 
-        Vector3 desiredDirection = (separation * separationWeight +
-                                    alignment * alignmentWeight +
-                                    cohesion * cohesionWeight +
+        Vector3 desiredDirection = (separation * data.separationWeight +
+                                    alignment * data.alignmentWeight +
+                                    cohesion * data.cohesionWeight +
                                     targetDirection).normalized;
 
         transform.forward = Vector3.Slerp(transform.forward, desiredDirection, Time.deltaTime * 5f);
-        transform.position += transform.forward * speed * Time.deltaTime;
+        transform.position += transform.forward * data.speed * Time.deltaTime;
     }
 
     private Vector3 CalculateSeparation()
@@ -83,7 +85,7 @@ public class BoidBehavior : MonoBehaviour
         foreach (Transform neighbor in neighbors)
         {
             float distance = Vector3.Distance(transform.position, neighbor.position);
-            if (distance < separationRadius)
+            if (distance < data.separationRadius)
             {
                 separation += (transform.position - neighbor.position) / distance;
             }
@@ -97,7 +99,7 @@ public class BoidBehavior : MonoBehaviour
         foreach (Transform neighbor in neighbors)
         {
             float distance = Vector3.Distance(transform.position, neighbor.position);
-            if (distance < separationRadius)
+            if (distance < data.separationRadius)
             {
                 separation += (transform.position - neighbor.position) / (distance * distance);
             }
@@ -140,7 +142,7 @@ public class BoidBehavior : MonoBehaviour
 
     public List<Transform> GetNeighbors()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, neighborRadius);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, data.neighborRadius);
         List<Transform> neighbors = new List<Transform>();
         foreach (Collider collider in colliders)
         {
