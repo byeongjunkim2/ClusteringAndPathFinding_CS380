@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour
             Vector3 delta = Input.mousePosition - lastMousePosition;
             Vector3 move = new Vector3(-delta.x, -delta.y, 0) * panSpeed * Time.deltaTime;
 
-            // 카메라의 오른쪽과 위쪽 벡터를 기준으로 이동
+            // camera movement
             transform.Translate(move.x * transform.right + move.y * transform.up, Space.World);
             lastMousePosition = Input.mousePosition;
         }
