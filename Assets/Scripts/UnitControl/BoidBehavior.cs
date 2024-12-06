@@ -138,7 +138,7 @@ public class BoidBehavior : MonoBehaviour
         return (weightedCenter - transform.position).normalized;
     }
 
-    private List<Transform> GetNeighbors()
+    public List<Transform> GetNeighbors()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, neighborRadius);
         List<Transform> neighbors = new List<Transform>();
