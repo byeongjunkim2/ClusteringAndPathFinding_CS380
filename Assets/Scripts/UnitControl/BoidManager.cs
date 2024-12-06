@@ -10,9 +10,17 @@ public class BoidManager : MonoBehaviour
     public Vector3 spawnArea = new Vector3(10, 10, 10);
     public Transform player;
 
-    private List<BoidBehavior> boidBehaviors = new List<BoidBehavior>();
+    public List<BoidBehavior> boidBehaviors = new List<BoidBehavior>();
 
     private List<GameObject> boids = new List<GameObject>();
+
+    [Header("current modes")]
+    public BoidBehavior.SeparationMode separationMode;
+    public BoidBehavior.CohesionMode cohesionMode;
+
+    [Header("current modes")] 
+    [SerializeField]
+    private BoidUISliderController boidController = null;
 
     void Start()
     {
@@ -44,10 +52,17 @@ public class BoidManager : MonoBehaviour
             if (behavior != null)
             {
                 boidBehaviors.Add(behavior); // boidBehaviors¿¡ Ãß°¡
+                behavior.separationMode = separationMode;
+                behavior.cohesionMode = cohesionMode;
             }
+
 
             boids.Add(boid);
         }
+
+        // update slider information
+        boidController?.UpdateSlider();
+
     }
 
     void Update()
@@ -121,13 +136,20 @@ public class BoidManager : MonoBehaviour
     }
 
 
-    public void SetMode(BoidBehavior.SeparationMode separationMode, BoidBehavior.CohesionMode cohesionMode)
+    public void SetMode(BoidBehavior.SeparationMode separationMode)
     {
-        InitializeBoids();
+        this.separationMode = separationMode;
 
         UpdateSeparationMode(separationMode);
+    }
+
+    public void SetMode(BoidBehavior.CohesionMode cohesionMode)
+    {
+        this.cohesionMode = cohesionMode;
+
         UpdateCohesionMode(cohesionMode);
     }
+
 
 
 }

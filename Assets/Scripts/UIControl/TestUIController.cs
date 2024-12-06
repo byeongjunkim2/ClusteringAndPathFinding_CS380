@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class TestUIController : MonoBehaviour
 {
+    public TextMeshProUGUI indicatorText;
+
     public TextMeshProUGUI distanceAverageText;
     public TextMeshProUGUI distanceAverageMaxText;
     public TextMeshProUGUI distanceStdDevText;
@@ -18,6 +20,8 @@ public class TestUIController : MonoBehaviour
     public Button separationInverseButton;
     public Button cohesionCenterButton;
     public Button cohesionWeightedButton;
+    public Button GenerateButton1;
+    public Button GenerateButton2;
 
     float distanceAverageMax = 0;
     float distanceStdDevMax = 0;
@@ -27,41 +31,46 @@ public class TestUIController : MonoBehaviour
         // 각 버튼의 클릭 이벤트 연결
         separationLinearButton.onClick.AddListener(() =>
         {
-            boidManager.SetSpawnArea(Vector3.zero);
-            boidManager.SetMode(BoidBehavior.SeparationMode.Linear, BoidBehavior.CohesionMode.Center);
-            distanceAverageMax = 0;
-            distanceStdDevMax = 0;
+            boidManager.SetMode(BoidBehavior.SeparationMode.Linear);
         });
 
         separationInverseButton.onClick.AddListener(() =>
         {
-            boidManager.SetSpawnArea(Vector3.zero);
-            boidManager.SetMode(BoidBehavior.SeparationMode.InverseSquare, BoidBehavior.CohesionMode.Center);
-            distanceAverageMax = 0;
-            distanceStdDevMax = 0;
+            boidManager.SetMode(BoidBehavior.SeparationMode.InverseSquare);
         });
 
         cohesionCenterButton.onClick.AddListener(() =>
         {
-            boidManager.SetSpawnArea(new Vector3(50, 50, 50));
-            boidManager.SetMode(BoidBehavior.SeparationMode.Linear, BoidBehavior.CohesionMode.Center);
-            distanceAverageMax = 0;
-            distanceStdDevMax = 0;
+            boidManager.SetMode( BoidBehavior.CohesionMode.Center);
         });
 
         cohesionWeightedButton.onClick.AddListener(() =>
         {
-            boidManager.SetSpawnArea(new Vector3(50, 50, 50));
-            boidManager.SetMode(BoidBehavior.SeparationMode.Linear, BoidBehavior.CohesionMode.Weighted);
+            boidManager.SetMode(BoidBehavior.CohesionMode.Weighted);
+        });
+
+        GenerateButton1.onClick.AddListener(() =>
+        {
+            boidManager.SetSpawnArea(new Vector3(0,0,0));
             distanceAverageMax = 0;
             distanceStdDevMax = 0;
+            boidManager.InitializeBoids();
+        });
+
+        GenerateButton2.onClick.AddListener(() =>
+        {
+            boidManager.SetSpawnArea(new Vector3(50, 50, 50));
+            distanceAverageMax = 0;
+            distanceStdDevMax = 0;
+            boidManager.InitializeBoids();
         });
     }
 
     void OnModeButtonClicked(BoidBehavior.SeparationMode separationMode, BoidBehavior.CohesionMode cohesionMode)
     {
         // BoidManager의 모드 설정 호출
-        boidManager.SetMode(separationMode, cohesionMode);
+        boidManager.SetMode(separationMode);
+        boidManager.SetMode(cohesionMode);
     }
 
 
@@ -79,6 +88,14 @@ public class TestUIController : MonoBehaviour
             distanceStdDevMax = distanceStdDev;
         }
         // 결과 업데이트
+        indicatorText.text = "Separation Mode: [" +
+                             (boidManager.separationMode == BoidBehavior.SeparationMode.Linear
+                                 ? "Linear"
+                                 : "Inverse Square") +
+                             "],  Cohesion Mode: [" +
+                             (boidManager.cohesionMode == BoidBehavior.CohesionMode.Center
+                                 ? "Center"
+                                 : "Weighted") + "]";
         distanceAverageText.text = $"Distance Average: {distanceAverage}";
         distanceStdDevText.text = $"Distance Std Dev: {distanceStdDev:F2}";
         distanceAverageMaxText.text = $"Distance Average Max: {distanceAverageMax}";
