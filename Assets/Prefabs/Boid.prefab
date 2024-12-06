@@ -122,8 +122,8 @@ MonoBehaviour:
   cohesionMode: 0
   speed: 5
   neighborRadius: 5
-  separationRadius: 1
-  separationWeight: 5
+  separationRadius: 2
+  separationWeight: 2
   alignmentWeight: 1
-  cohesionWeight: 1
+  cohesionWeight: 1.5
   targetPosition: {x: 0, y: 0, z: 0}
