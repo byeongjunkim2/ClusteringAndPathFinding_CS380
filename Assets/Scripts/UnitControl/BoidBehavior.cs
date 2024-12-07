@@ -90,7 +90,8 @@ public class BoidBehavior : MonoBehaviour
                 separation += (transform.position - neighbor.position) / distance;
             }
         }
-        return separation.normalized;
+        return separation;
+        //return separation.normalized;
     }
 
     private Vector3 CalculateSeparationInverseSquare()
@@ -104,7 +105,8 @@ public class BoidBehavior : MonoBehaviour
                 separation += (transform.position - neighbor.position) / (distance * distance);
             }
         }
-        return separation.normalized;
+        return separation;
+        //return separation.normalized;
     }
 
     private Vector3 CalculateCohesionCenter()

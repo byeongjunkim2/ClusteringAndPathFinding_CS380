@@ -7,12 +7,12 @@ using TMPro;
 [System.Serializable]
 public class BoidBehaviorData
 {
-    public float speed = 5;
-    public float neighborRadius = 5;
-    public float separationRadius = 2;
-    public float separationWeight = 2;
-    public float alignmentWeight = 1;
-    public float cohesionWeight = 1.5f;
+    public float speed; //= 5;
+    public float neighborRadius;// = 5;
+    public float separationRadius;// = 2;
+    public float separationWeight;//= 2;
+    public float alignmentWeight;//= 1;
+    public float cohesionWeight;// = 1.5f;
 }
 
 public class BoidManager : MonoBehaviour
