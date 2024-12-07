@@ -4046,9 +4046,9 @@ MonoBehaviour:
   boidBehaviors: []
   boidController: {fileID: 1838053838}
   behaviorData:
-    speed: 5
+    speed: 20
     neighborRadius: 5
-    separationRadius: 2
+    separationRadius: 10
     separationWeight: 2
     alignmentWeight: 1
     cohesionWeight: 1.5

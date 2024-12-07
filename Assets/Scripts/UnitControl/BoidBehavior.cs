@@ -120,7 +120,7 @@ public class BoidBehavior : MonoBehaviour
         }
         centerOfMass /= neighbors.Count;
 
-        return (centerOfMass - transform.position).normalized;
+        return (centerOfMass - transform.position);//.normalized;
     }
 
     private Vector3 CalculateCohesionWeighted()
@@ -139,7 +139,7 @@ public class BoidBehavior : MonoBehaviour
         }
         weightedCenter /= totalWeight;
 
-        return (weightedCenter - transform.position).normalized;
+        return (weightedCenter - transform.position);//.normalized;
     }
 
     public List<Transform> GetNeighbors()
