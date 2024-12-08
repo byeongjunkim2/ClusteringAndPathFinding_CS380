@@ -1,3 +1,0 @@
-- We decided to minimize text and use more visuals for clarity.
-- Instead of a full demo, we will use GIFs extensively to convey key points.
-- To enhance the comparisons, we chose not to use PowerPoint animations.
