@@ -7,7 +7,7 @@ public class BoidMover : MonoBehaviour
 
     public UnitGenerator boidController;
 
-    private float speed;// = 0.03f;
+    private float speed;
 
     List<BoidMover> neighbor = new List<BoidMover>();
     [SerializeField] LayerMask boidUnitLayer;
@@ -39,7 +39,7 @@ public class BoidMover : MonoBehaviour
         targetVec = Vector3.Lerp(this.transform.forward, targetVec, Time.deltaTime);
         targetVec = targetVec.normalized;
         this.transform.rotation = Quaternion.LookRotation(targetVec);
-        //     this.transform.position += targetVec * (speed + additionalSpeed) * Time.deltaTime;
+    
 
 
         transform.position += transform.forward * speed;
@@ -76,7 +76,6 @@ public class BoidMover : MonoBehaviour
             return cohesionVec;
         }
 
-        // 중심 위치로의 벡터 찾기
         cohesionVec /= neighbor.Count;
         cohesionVec -= transform.position;
         cohesionVec.Normalize();
