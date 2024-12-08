@@ -91,6 +91,12 @@ public class BoidManager : MonoBehaviour
 
     void Update()
     {
+        if( Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
+
         if (player != null)
         {
             Vector3 targetPosition = player.position;
