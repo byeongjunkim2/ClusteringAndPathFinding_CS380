@@ -45,15 +45,14 @@ public class BoidManager : MonoBehaviour
 
     public void InitializeBoids(bool firstInitialize = false)
     {
-        // 기존 Boid 파괴
+  
         foreach (var boid in boids)
         {
             Destroy(boid);
         }
         boids.Clear();
-        boidBehaviors.Clear(); // boidBehaviors 리스트 초기화
+        boidBehaviors.Clear(); 
 
-        // 새로운 Boid 생성
         for (int i = 0; i < boidCount; i++)
         {
             Vector3 spawnPosition = transform.position + new Vector3(
@@ -65,7 +64,7 @@ public class BoidManager : MonoBehaviour
             GameObject boid = Instantiate(boidPrefab, spawnPosition, Quaternion.identity, boidPool);
             BoidBehavior behavior = boid.GetComponent<BoidBehavior>();
 
-            // re-set the data when it is not first initialize
+ 
             if (firstInitialize == true)
             {
                 behaviorData = behavior.data;
@@ -75,10 +74,9 @@ public class BoidManager : MonoBehaviour
                 behavior.data = behaviorData;
             }
 
-            // null check
             if (behavior != null)
             {
-                boidBehaviors.Add(behavior); // boidBehaviors에 추가
+                boidBehaviors.Add(behavior);
                 behavior.separationMode = separationMode;
                 behavior.cohesionMode = cohesionMode;
             }
@@ -87,7 +85,6 @@ public class BoidManager : MonoBehaviour
             boids.Add(boid);
         }
 
-        // update slider information
         boidController?.UpdateSlider();
 
     }
@@ -153,7 +150,7 @@ public class BoidManager : MonoBehaviour
     {
         foreach (var behavior in boidBehaviors)
         {
-            behavior.separationMode = mode; // SeparationMode 업데이트
+            behavior.separationMode = mode; 
         }
     }
 
@@ -161,7 +158,7 @@ public class BoidManager : MonoBehaviour
     {
         foreach (var behavior in boidBehaviors)
         {
-            behavior.cohesionMode = mode; // CohesionMode 업데이트
+            behavior.cohesionMode = mode; 
         }
     }
 

@@ -28,7 +28,6 @@ public class TestUIController : MonoBehaviour
 
     void Start()
     {
-        // 각 버튼의 클릭 이벤트 연결
         separationLinearButton.onClick.AddListener(() =>
         {
             boidManager.SetMode(BoidBehavior.SeparationMode.Linear);
@@ -68,7 +67,6 @@ public class TestUIController : MonoBehaviour
 
     void OnModeButtonClicked(BoidBehavior.SeparationMode separationMode, BoidBehavior.CohesionMode cohesionMode)
     {
-        // BoidManager의 모드 설정 호출
         boidManager.SetMode(separationMode);
         boidManager.SetMode(cohesionMode);
     }
@@ -76,7 +74,7 @@ public class TestUIController : MonoBehaviour
 
     void Update()
     {
-        // BoidManager에서 테스트 데이터 가져오기
+ 
         float distanceAverage = boidManager.CalculateAverageNeighborDistance();
         if (distanceAverage > distanceAverageMax)
         {
@@ -87,7 +85,7 @@ public class TestUIController : MonoBehaviour
         {
             distanceStdDevMax = distanceStdDev;
         }
-        // 결과 업데이트
+
         indicatorText.text = "Separation Mode: [" +
                              (boidManager.separationMode == BoidBehavior.SeparationMode.Linear
                                  ? "Linear"

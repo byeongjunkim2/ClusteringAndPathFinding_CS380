@@ -45,13 +45,9 @@ public class UnitSelectionManager : MonoBehaviour
     {
         Rect selectionRect = GetScreenRect(startMousePosition, Input.mousePosition);
 
-        // Refund current holding units
+
         Release();
 
-        // GreenCircle reset
-        // holdingTextureDrawer.ResetGreenCircles();
-
-        // Get holding units
         GameObject[] units = GameObject.FindGameObjectsWithTag("Unit");
         foreach (GameObject unit in units)
         {
@@ -100,9 +96,9 @@ public class UnitSelectionManager : MonoBehaviour
     void DrawScreenRectBorder(Rect rect, float thickness, Color color)
     {
         // draw
-        DrawScreenRect(new Rect(rect.xMin, rect.yMin, rect.width, thickness), color); // 상단
-        DrawScreenRect(new Rect(rect.xMin, rect.yMax - thickness, rect.width, thickness), color); // 하단
-        DrawScreenRect(new Rect(rect.xMin, rect.yMin, thickness, rect.height), color); // 좌측
-        DrawScreenRect(new Rect(rect.xMax - thickness, rect.yMin, thickness, rect.height), color); // 우측
+        DrawScreenRect(new Rect(rect.xMin, rect.yMin, rect.width, thickness), color); 
+        DrawScreenRect(new Rect(rect.xMin, rect.yMax - thickness, rect.width, thickness), color); 
+        DrawScreenRect(new Rect(rect.xMin, rect.yMin, thickness, rect.height), color); 
+        DrawScreenRect(new Rect(rect.xMax - thickness, rect.yMin, thickness, rect.height), color); 
     }
 }

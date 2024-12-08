@@ -11,17 +11,9 @@ public class BoidBehavior : MonoBehaviour
 
     [Header("Radius & Weights data")]
     public BoidBehaviorData data;
-    //public float speed = 2f;
-    //public float neighborRadius = 3f;
-    //public float separationRadius = 1f;
-
-    //[Header("Weights")]
-    //public float separationWeight = 1.5f;
-    //public float alignmentWeight = 1f;
-    //public float cohesionWeight = 1f;
 
     private List<Transform> neighbors;
-    public Vector3 targetPosition; // 타겟 포지션 추가
+    public Vector3 targetPosition;
 
     void Update()
     {
@@ -30,7 +22,7 @@ public class BoidBehavior : MonoBehaviour
         Vector3 separation = CalculateSeparation();
         Vector3 alignment = CalculateAlignment();
         Vector3 cohesion = CalculateCohesion();
-        Vector3 targetDirection = (targetPosition - transform.position).normalized; // 타겟 방향
+        Vector3 targetDirection = (targetPosition - transform.position).normalized; 
 
         Vector3 desiredDirection = (separation * data.separationWeight +
                                     alignment * data.alignmentWeight +
@@ -91,7 +83,6 @@ public class BoidBehavior : MonoBehaviour
             }
         }
         return separation;
-        //return separation.normalized;
     }
 
     private Vector3 CalculateSeparationInverseSquare()
@@ -106,7 +97,6 @@ public class BoidBehavior : MonoBehaviour
             }
         }
         return separation;
-        //return separation.normalized;
     }
 
     private Vector3 CalculateCohesionCenter()
@@ -120,7 +110,7 @@ public class BoidBehavior : MonoBehaviour
         }
         centerOfMass /= neighbors.Count;
 
-        return (centerOfMass - transform.position);//.normalized;
+        return (centerOfMass - transform.position);
     }
 
     private Vector3 CalculateCohesionWeighted()
@@ -139,7 +129,7 @@ public class BoidBehavior : MonoBehaviour
         }
         weightedCenter /= totalWeight;
 
-        return (weightedCenter - transform.position);//.normalized;
+        return (weightedCenter - transform.position);
     }
 
     public List<Transform> GetNeighbors()
@@ -148,7 +138,7 @@ public class BoidBehavior : MonoBehaviour
         List<Transform> neighbors = new List<Transform>();
         foreach (Collider collider in colliders)
         {
-            if (collider.transform != this.transform) // 본인 제외
+            if (collider.transform != this.transform)
                 neighbors.Add(collider.transform);
         }
         return neighbors;

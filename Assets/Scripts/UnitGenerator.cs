@@ -49,7 +49,6 @@ public class UnitGenerator : MonoBehaviour
             switch (type)
             {
                 case Types.Boid:
-                    //currUnit.InitializeUnit(this, Random.Range(speedRange.x, speedRange.y), i);
                     currUnit.GetComponent<BoidMover>().InitializeUnit(this, speed);
                     break;
             }
